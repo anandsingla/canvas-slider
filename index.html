@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Canvas Slide Bar by Anand Singla: 8882289233</title>
+<script type="text/javascript">
+    function drawShape() {
+        canvas_simple = document.getElementById('canvas');
+        context_simple = canvas_simple.getContext("2d");
+        context_simple.clearRect(10, 10, 280, 280);
+        context_simple.strokeRect(50, 50, 50, 50);
+        context_simple.strokeRect(50, 250, 120, 20);
+        context_simple.fillRect(50, 250, 20, 20);
+        canvas_simple.addEventListener('mousemove', ev_mousemove, false); // function for the PC with mouse
+        canvas_simple.addEventListener('touchmove', ev_touchmove, false); // function for the touch screen
+    }
+    var started = false;
+
+    function ev_mousemove(ev) {
+        var x, y, context = document.getElementById('canvas').getContext('2d');
+
+        if (ev.layerX || ev.layerX == 0) { // Firefox
+            x = ev.layerX;
+            y = ev.layerY;
+        }
+        else if (ev.offsetX || ev.offsetX == 0) { // Opera
+            x = ev.offsetX;
+            y = ev.offsetY;
+        }
+        if ((x <= 150 && x > 50) && (y > 250 && y <= 270)) {
+            context.clearRect(10, 10, 280, 280);  // clr screen
+            context.strokeRect(50, 50, x, x);  // moving Square
+            context.strokeRect(50, 250, 120, 20); // Sliding Bar
+            context_simple.fillRect(x, 250, 20, 20);//Slider
+        }
+
+    }
+    function ev_touchmove(ev) {
+        var x, y, context = document.getElementById('canvas').getContext('2d');
+
+        if (ev.layerX || ev.layerX == 0) { // Firefox
+            x = ev.targetTouches[0].pageX;
+            y = ev.targetTouches[0].pagey;
+        }
+        
+        if ((x <= 150 && x > 50) && (y > 250 && y <= 270)) {
+            context.clearRect(10, 10, 280, 280);  // clr screen
+            context.strokeRect(50, 50, x, x);  // moving Square
+            context.strokeRect(50, 250, 120, 20); // Sliding Bar
+            context_simple.fillRect(x, 250, 20, 20);//Slider
+        }
+
+    }
+</script>
+<meta name="viewport" content="width=device-width,
+initial-scale=1.0, user-scalable=no">
+</head>
+
+<body onload="drawShape();">
+
+<canvas id="canvas" height = 300 width = 300></canvas>
+</body>
+</html>
